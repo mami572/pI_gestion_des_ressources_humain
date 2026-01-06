@@ -1,0 +1,48 @@
+export const translations = {
+  fr: {
+    dashboard: "Tableau de Bord",
+    employees: "Employés",
+    attendance: "Présence",
+    leave: "Congés",
+    payroll: "Paie",
+    training: "Formations",
+    recruitment: "Recrutement",
+    performance: "Performance",
+    announcements: "Annonces",
+    settings: "Paramètres",
+    logout: "Déconnexion",
+    login: "Connexion",
+    email: "Email",
+    password: "Mot de passe",
+    welcome: "Bienvenue",
+    totalEmployees: "Total Employés",
+    presentToday: "Présents Aujourd'hui",
+    pendingLeaves: "Congés en Attente",
+    completedTrainings: "Formations Terminées",
+  },
+  ar: {
+    dashboard: "لوحة التحكم",
+    employees: "الموظفون",
+    attendance: "الحضور",
+    leave: "الإجازات",
+    payroll: "الرواتب",
+    training: "التدريب",
+    recruitment: "التوظيف",
+    performance: "الأداء",
+    announcements: "الإعلانات",
+    settings: "الإعدادات",
+    logout: "تسجيل الخروج",
+    login: "تسجيل الدخول",
+    email: "البريد الإلكتروني",
+    password: "كلمة المرور",
+    welcome: "مرحبا",
+    totalEmployees: "إجمالي الموظفين",
+    presentToday: "حاضرون اليوم",
+    pendingLeaves: "الإجازات المعلقة",
+    completedTrainings: "التدريبات المكتملة",
+  },
+}
+
+export function t(key: string, lang: "fr" | "ar" = "fr"): string {
+  return (translations[lang] as any)[key] || key
+}
