@@ -1,8 +1,8 @@
-import bcryptjs from "bcryptjs"
-import { query } from "./db"
+import bcryptjs from "bcryptjs"//:
+import { query } from "./db"//:
 
 export async function hashPassword(password: string): Promise<string> {
-  return bcryptjs.hash(password, 10)
+  return bcryptjs.hash(password, 10)          
 }
 
 export async function comparePassword(password: string, hash: string): Promise<boolean> {

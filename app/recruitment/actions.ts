@@ -1,6 +1,7 @@
 "use server"
 
-import { query } from "@/lib/db"
+import { query } from "@/backend/lib/db"
+import { generateSummary } from "@/backend/lib/ai"
 import { cookies } from "next/headers"
 import { z } from "zod"
 
@@ -284,5 +285,41 @@ export async function getDepartments() {
     } catch (error: any) {
         console.error("[getDepartments] Error:", error)
         return { success: false, error: "Erreur lors de la récupération des départements" }
+    }
+}
+
+// AI: Summarize Candidate CV
+export async function summarizeCandidateCV(candidateId: number) {
+    try {
+        // Check permissions
+        await checkPermissions()
+
+        // Get candidate details
+        const result: any = await query("SELECT * FROM Candidate WHERE id = ?", [candidateId])
+        if (result.length === 0) {
+            return { success: false, error: "Candidat non trouvé" }
+        }
+
+        const candidate = result[0]
+
+        // Prepare content for AI (prefer notes/cover letter if CV parsing not fully implemented)
+        const contentToSummarize = `
+            Nom: ${candidate.first_name} ${candidate.last_name}
+            Email: ${candidate.email}
+            Expérience: ${candidate.years_of_experience || 'Non spécifié'} ans
+            Niveau d'études: ${candidate.education_level || 'Non spécifié'}
+            Lettre de motivation: ${candidate.cover_letter || 'Non spécifiée'}
+            Notes: ${candidate.notes || 'Aucune'}
+        `
+
+        const summary = await generateSummary(
+            contentToSummarize,
+            "Tu es un expert en recrutement. Résume le profil de ce candidat en mettant en évidence ses points forts et sa pertinence pour le poste."
+        )
+
+        return { success: true, data: summary }
+    } catch (error: any) {
+        console.error("[summarizeCandidateCV] Error:", error)
+        return { success: false, error: error.message || "Erreur lors de la génération du résumé" }
     }
 }

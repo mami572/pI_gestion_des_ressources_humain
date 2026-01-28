@@ -1,16 +1,16 @@
-const mysql = require('mysql2/promise');
-require('dotenv').config({ path: '.env.local' });
+const mysql = require('mysql2/promise');//:import mysql
+require('dotenv').config({ path: '.env.local' });//:import dotenv
 
 async function seedJobOffers() {
     const connection = await mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
+        host: process.env.DB_HOST,//:host
+        user: process.env.DB_USER,//:user
+        password: process.env.DB_PASSWORD,//:password
+        database: process.env.DB_NAME,//:database
     });
 
     try {
-        // Sample job offers
+        // Sample job offers    
         const jobOffers = [
             {
                 title: 'Développeur Full Stack Senior',

@@ -8,6 +8,7 @@ import DashboardStats from "@/components/dashboard/stats"
 import RecentAnnouncements from "@/components/dashboard/announcements"
 import AttendanceChart from "@/components/dashboard/attendance-chart"
 import DepartmentDistribution from "@/components/dashboard/department-chart"
+import AIInsights from "@/components/dashboard/ai-insights"
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -60,6 +61,9 @@ export default function DashboardPage() {
               <div>
                 <DepartmentDistribution language={language} />
               </div>
+            </div>
+            <div>
+              <AIInsights language={language} />
             </div>
             <div>
               <RecentAnnouncements language={language} />

@@ -25,6 +25,18 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@/components/*": [
+        "./frontend/components/*"
+      ],
+      "@/hooks/*": [
+        "./frontend/hooks/*"
+      ],
+      "@/styles/*": [
+        "./frontend/styles/*"
+      ],
+      "@/lib/*": [
+        "./backend/lib/*"
       ]
     }
   },
@@ -32,6 +44,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "frontend/**/*.ts",
+    "frontend/**/*.tsx",
+    "backend/**/*.ts",
+    "backend/**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],

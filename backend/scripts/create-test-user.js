@@ -1,14 +1,16 @@
-const bcryptjs = require('bcryptjs');
-const mysql = require('mysql2/promise');
-require('dotenv').config({ path: '.env.local' });
+const bcryptjs = require('bcryptjs');//:import bcryptjs
+const mysql = require('mysql2/promise');//:import mysql
+require('dotenv').config({ path: '.env' });//:import dotenv
 
-async function createTestUser() {
+async function createTestUser() {//:createTestUser
     const connection = await mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
+        host: process.env.DB_HOST || 'localhost',
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD || '1234',
+        database: process.env.DB_NAME || 'Grh_db',
     });
+ //crees en comptes if you dont have one 
+    
 
     try {
         // Hash the password
@@ -21,7 +23,7 @@ async function createTestUser() {
         );
 
         if (existing.length > 0) {
-            console.log('✅ Test user already exists: admin@example.com');
+            console.log('✅ Test user already exists: admin@example.com');//:existing
             console.log('📧 Email: admin@example.com');
             console.log('🔑 Password: password');
             return;
@@ -37,7 +39,11 @@ async function createTestUser() {
         console.log('📧 Email: admin@example.com');
         console.log('🔑 Password: password');
         console.log('👤 Role: admin');
-    } catch (error) {
+        console.log('User ID:', result.insertId);//:result
+        console.log('User created at:', result.created_at);//:result
+        console.log('User updated at:', result.updated_at);//:result    
+
+    } catch (error) {//:error
         console.error('❌ Error creating test user:', error.message);
     } finally {
         await connection.end();

@@ -69,38 +69,45 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center p-4">
-      <div className="absolute top-4 right-4 flex gap-2">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/20 via-background to-accent/10 flex items-center justify-center p-4 overflow-hidden relative">
+      {/* Decorative background elements */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-3xl animate-pulse delay-700" />
+
+      <div className="absolute top-4 right-4 flex gap-2 z-10">
         <button
           onClick={() => setLanguage("fr")}
-          className={`px-3 py-1 rounded ${language === "fr" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
+          className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${language === "fr" ? "bg-primary text-primary-foreground shadow-lg scale-105" : "bg-muted/50 text-muted-foreground hover:bg-muted"}`}
         >
           FR
         </button>
         <button
           onClick={() => setLanguage("ar")}
-          className={`px-3 py-1 rounded ${language === "ar" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
+          className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${language === "ar" ? "bg-primary text-primary-foreground shadow-lg scale-105" : "bg-muted/50 text-muted-foreground hover:bg-muted"}`}
         >
           AR
         </button>
       </div>
 
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl text-center text-primary">{t.title}</CardTitle>
-          <CardDescription className="text-center">{t.subtitle}</CardDescription>
+      <Card className="w-full max-w-md glass-card border-white/20 select-none relative z-10 animate-in fade-in zoom-in duration-700">
+        <CardHeader className="space-y-2 pb-8">
+          <div className="w-16 h-16 bg-primary rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-xl shadow-primary/20 animate-float">
+            <span className="text-primary-foreground text-3xl font-bold">G</span>
+          </div>
+          <CardTitle className="text-3xl font-bold text-center tracking-tight text-foreground">{t.title}</CardTitle>
+          <CardDescription className="text-center text-muted-foreground/80 font-medium">{t.subtitle}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div className="flex gap-2 p-3 bg-destructive/10 text-destructive rounded-md">
-                <AlertCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <p className="text-sm">{error}</p>
+              <div className="flex gap-2 p-4 bg-destructive/10 text-destructive rounded-xl border border-destructive/20 animate-in slide-in-from-top-2">
+                <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                <p className="text-sm font-medium">{error}</p>
               </div>
             )}
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">{t.email}</label>
+              <label className="text-sm font-semibold ml-1">{t.email}</label>
               <Input
                 type="email"
                 placeholder="admin@example.com"
@@ -108,11 +115,12 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isLoading}
                 required
+                className="bg-white/50 dark:bg-black/20 border-white/30 rounded-xl h-12 transition-all focus:ring-2 focus:ring-primary/50"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">{t.password}</label>
+              <label className="text-sm font-semibold ml-1">{t.password}</label>
               <Input
                 type="password"
                 placeholder="••••••••"
@@ -120,13 +128,14 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
                 required
+                className="bg-white/50 dark:bg-black/20 border-white/30 rounded-xl h-12 transition-all focus:ring-2 focus:ring-primary/50"
               />
             </div>
 
-            <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isLoading}>
+            <Button type="submit" className="w-full h-12 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-lg shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]" disabled={isLoading}>
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                   {t.loading}
                 </>
               ) : (
@@ -135,9 +144,11 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-6 pt-4 border-t text-center">
-            <p className="text-xs text-muted-foreground">{language === "fr" ? "Compte de test:" : "حساب الاختبار:"}</p>
-            <p className="text-xs text-muted-foreground mt-1">admin@example.com / password</p>
+          <div className="mt-8 pt-6 border-t border-white/20 text-center">
+            <div className="bg-muted/30 rounded-lg p-3 inline-block">
+              <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground mb-1 leading-none">{language === "fr" ? "Compte de test" : "حساب الاختبار"}</p>
+              <p className="text-sm font-mono text-primary/80">admin@example.com / password</p>
+            </div>
           </div>
         </CardContent>
       </Card>
